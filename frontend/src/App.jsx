@@ -16,6 +16,7 @@ function App() {
 
   const [routedEmails, setRoutedEmails] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
   const resultRef = useRef(null);
 
@@ -30,6 +31,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
 
 
+
   const handleGenerateEmail = async (promptText, index = null) => {
     const finalPrompt = promptText || emailText;
 
@@ -37,13 +39,14 @@ function App() {
       alert("Please write a prompt first");
       return;
     }
+    
 
     try {
       setGenerating(true);
       setGeneratingIndex(index);
       setResult(null);
 
-      const res = await axios.post("http://localhost:5000/api/generate-email", {
+      const res = await axios.post(`${API_URL}api/generate-email`, {
         promptText: finalPrompt,
       });
 
@@ -68,7 +71,6 @@ function App() {
     try {
       setLoading(true);
       setResult(null);
-      const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
       const res = await axios.post(`${API_URL}/api/route-email`, {
         emailText,
