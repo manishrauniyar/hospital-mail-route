@@ -68,8 +68,9 @@ function App() {
     try {
       setLoading(true);
       setResult(null);
+      const API_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
-      const res = await axios.post("http://localhost:5000/api/route-email", {
+      const res = await axios.post(`${API_URL}/api/route-email`, {
         emailText,
       });
 
