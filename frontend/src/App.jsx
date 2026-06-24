@@ -46,7 +46,7 @@ function App() {
       setGeneratingIndex(index);
       setResult(null);
 
-      const res = await axios.post(`${API_URL}api/generate-email`, {
+      const res = await axios.post(`${API_URL}/api/generate-email`, {
         promptText: finalPrompt,
       });
 
