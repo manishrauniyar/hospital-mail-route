@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+// import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import ChatMistralAI from "@langchain_mistralai";
 import { SystemMessage, HumanMessage } from "@langchain/core/messages";
 
 dotenv.config();
@@ -12,8 +13,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const gemini = new ChatGoogleGenerativeAI({
-  model: "gemini-2.5-flash-lite",
+const mistral = new ChatMistralAI({
+  model: "mistral-large-latest",
   temperature: 0,
 });
 
@@ -57,7 +58,7 @@ Return only the email text.
 Do not return JSON.
 `;
 
-    const response = await gemini.invoke([
+    const response = await mistral.invoke([
       new HumanMessage(emailGeneratePrompt),
     ]);
 
@@ -128,7 +129,7 @@ Return only valid JSON in this format:
 }
 `;
 
-    const response = await gemini.invoke([
+    const response = await mistral.invoke([
       new SystemMessage(systemPrompt),
       new HumanMessage(emailText),
     ]);
